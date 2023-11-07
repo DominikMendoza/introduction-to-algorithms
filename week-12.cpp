@@ -276,6 +276,112 @@ void ejercicio2()
 	imprimirEncuestas(encuestas, n);
 	gastoSegunGenero(encuestas, n);
 }
+
+struct persona
+{
+	int nivelAprobacion, edad;
+	char nivelSocieconomico;
+};
+
+void imprimirPersona(persona p)
+{
+	cout << "Nivel de aprobacion: " << p.nivelAprobacion << '\n';
+	cout << "Edad: " << p.edad << '\n';
+	cout << "Nivel socioeconomico: " << p.nivelSocieconomico << '\n';
+	cout << '\n';
+}
+int obtenerNValido2()
+{
+	int n;
+	do
+	{
+		cout << "Ingrese el numero de personas encuestadas: ";
+		cin >> n;
+	} while (n < 0 || n > 100);
+	return n;
+}
+
+void generarValoresPersonas(persona* ps, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		ps[i].nivelAprobacion = rand() % 5 + 1;
+		ps[i].edad = rand() % 51 + 18;
+		ps[i].nivelSocieconomico = 'A' + rand() % 4;
+	}
+}
+void imprimirPersonas(persona* ps, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		imprimirPersona(ps[i]);
+	}
+}
+void imprimirMayorNivelAprobacion(persona* ps, int n)
+{
+	int* votaciones = new int[6];
+	for (int i = 0; i < 6; i++)
+	{
+		votaciones[i] = 0;
+	}
+	// contar los votos
+	for (int i = 0; i < n; i++)
+	{
+		votaciones[ps[i].nivelAprobacion]++;
+	}
+	int posMayor = 0;
+	for (int i = 1; i < 6; i++)
+	{
+		if (votaciones[i] > votaciones[posMayor]) {
+			posMayor = i;
+		}
+	}
+	cout << "El nivel de aprobacion fue: " << posMayor << " con " << votaciones[posMayor] << " votos\n";
+}
+
+void imprimirPersonasSocieA(persona* ps, int n)
+{
+	int cnt = 0;
+	// contar los votos
+	for (int i = 0; i < n; i++)
+	{
+		if (ps[i].nivelSocieconomico == 'A')
+			cnt++;
+	}
+	cout << "Los votos del socioeconomico A son: " << cnt << '\n';
+}
+
+void imprimirEdadPersonaMasJoven(persona* ps, int n)
+{
+	int posMinEdad = 0;
+	// solo edad
+	int edadMinima = ps[0].edad;
+	for (int i = 1; i < n; i++)
+	{
+		if (ps[i].edad < ps[posMinEdad].edad)
+		{
+			posMinEdad = i;
+		}
+		// solo edad
+		if (ps[i].edad < edadMinima)
+		{
+			edadMinima = ps[i].edad;
+		}
+	}
+	cout << "La edad de la persona mas joven es: " << ps[posMinEdad].edad << '\n';
+	// solo edad
+	cout << "La edad de la persona mas joven es: " << edadMinima << '\n';
+}
+void ejercicio1()
+{
+	int n = obtenerNValido2();
+	persona* ps = new persona[n];
+	generarValoresPersonas(ps, n);
+	imprimirPersonas(ps, n);
+	imprimirMayorNivelAprobacion(ps, n);
+	imprimirPersonasSocieA(ps, n);
+	imprimirEdadPersonaMasJoven(ps, n);
+}
 int main()
 {
 	srand(time(nullptr));
