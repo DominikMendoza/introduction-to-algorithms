@@ -67,7 +67,7 @@ void mostrarTotalDeVentasAgencia3(int M[][agencias]) {
 }
 
 void mostrarPromedioDeVentasDiciembre(int M[][agencias]) {
-	// El mes de diciembre esta en la fila 3
+	// El mes de diciembre esta en la fila 12
 	int diciembre = 11;
 	int suma = 0;
 	for (int i = 0; i < agencias; i++)
