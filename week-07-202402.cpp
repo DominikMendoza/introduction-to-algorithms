@@ -20,7 +20,7 @@ void imprimirNivelDeSatisfaccionFrecuencia(int cntB, int cntR, int cntM) {
 
 void imprimirMinimaEdadEstudianteNoMoodle(int edad) {
 	cout << "Edad de la mujer mas joven que no usa Moodle: ";
-	if (edad == 200000) {
+	if (edad == 100000) {
 		cout << "No hubo" << endl;
 	}
 	else {
@@ -34,7 +34,7 @@ int obtenerEdadValida() {
 	{
 		cout << "Ingrese su edad: ";
 		cin >> edad;
-	} while ((edad < 27 || edad > 65) && edad != 0);
+	} while ((edad < 17 || edad > 65) && edad != 0);
 	return edad;
 }
 
@@ -69,7 +69,7 @@ char obtenerNivelSatisfaccionValido() {
 	} while (satisfaccion != 'B' && satisfaccion != 'R' && satisfaccion != 'M');
 	return satisfaccion;
 }
-void ejercicio_2_7A() {
+void ejercicio_1_7A() {
 	int edad;
 	char sexo, plataforma, satisfaccion;
 
@@ -81,7 +81,7 @@ void ejercicio_2_7A() {
 	int cntBueno, cntRegular, cntMalo;
 	cntBueno = cntRegular = cntMalo = 0;
 
-	int minimaEdadEstdNoMoodle = 200000;
+	int minimaEdadEstdNoMoodle = 100000;
 	do
 	{
 		edad = obtenerEdadValida();
@@ -129,12 +129,12 @@ void ejercicio_2_7A() {
 void dibujarTriangulo(int x, int y, int valor) {
 	int size = 4;
 	// 0 2 2 3
-	for (int i = 2; i <= size; i++)
+	for (int i = 1; i <= size; i++)
 	{
 		// 0 -> 0
-		for (int j = 2; j <= i; j++)
+		for (int j = 1; j <= i; j++)
 		{
-			Console::SetCursorPosition(x + j - 2, y + i - 2);
+			Console::SetCursorPosition(x + j - 1, y + i - 1);
 			if (j == 2 && i == 3) {
 				cout << valor;
 			}
@@ -149,11 +149,11 @@ void ejercicio_5_7B() {
 	int numero;
 	cout << "Ingrese numero: ";
 	cin >> numero;
-	for (int i = 2; i <= numero; i++)
+	for (int i = 1; i <= numero; i++)
 	{
-		for (int j = 2; j <= i; j++)
+		for (int j = 1; j <= i; j++)
 		{
-			dibujarTriangulo(4 * (j - 2), 4 * (i - 2), i);
+			dibujarTriangulo(4 * (j - 1), 4 * (i - 1), i);
 		}
 	}
 }
