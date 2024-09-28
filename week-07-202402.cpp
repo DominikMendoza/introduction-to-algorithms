@@ -1,4 +1,7 @@
 #include <iostream>
+#include <conio.h>
+#define WIDTH 80
+#define HEIGHT 40
 using namespace System;
 using namespace std;
 
@@ -17,7 +20,7 @@ void imprimirNivelDeSatisfaccionFrecuencia(int cntB, int cntR, int cntM) {
 
 void imprimirMinimaEdadEstudianteNoMoodle(int edad) {
 	cout << "Edad de la mujer mas joven que no usa Moodle: ";
-	if (edad == 100000) {
+	if (edad == 200000) {
 		cout << "No hubo" << endl;
 	}
 	else {
@@ -31,7 +34,7 @@ int obtenerEdadValida() {
 	{
 		cout << "Ingrese su edad: ";
 		cin >> edad;
-	} while ((edad < 17 || edad > 65) && edad != 0);
+	} while ((edad < 27 || edad > 65) && edad != 0);
 	return edad;
 }
 
@@ -66,7 +69,7 @@ char obtenerNivelSatisfaccionValido() {
 	} while (satisfaccion != 'B' && satisfaccion != 'R' && satisfaccion != 'M');
 	return satisfaccion;
 }
-void ejercicio_1_7A() {
+void ejercicio_2_7A() {
 	int edad;
 	char sexo, plataforma, satisfaccion;
 
@@ -78,7 +81,7 @@ void ejercicio_1_7A() {
 	int cntBueno, cntRegular, cntMalo;
 	cntBueno = cntRegular = cntMalo = 0;
 
-	int minimaEdadEstdNoMoodle = 100000;
+	int minimaEdadEstdNoMoodle = 200000;
 	do
 	{
 		edad = obtenerEdadValida();
@@ -125,13 +128,13 @@ void ejercicio_1_7A() {
 
 void dibujarTriangulo(int x, int y, int valor) {
 	int size = 4;
-	// 0 1 2 3
-	for (int i = 1; i <= size; i++)
+	// 0 2 2 3
+	for (int i = 2; i <= size; i++)
 	{
 		// 0 -> 0
-		for (int j = 1; j <= i; j++)
+		for (int j = 2; j <= i; j++)
 		{
-			Console::SetCursorPosition(x + j - 1, y + i - 1);
+			Console::SetCursorPosition(x + j - 2, y + i - 2);
 			if (j == 2 && i == 3) {
 				cout << valor;
 			}
@@ -146,17 +149,94 @@ void ejercicio_5_7B() {
 	int numero;
 	cout << "Ingrese numero: ";
 	cin >> numero;
-	for (int i = 1; i <= numero; i++)
+	for (int i = 2; i <= numero; i++)
 	{
-		for (int j = 1; j <= i; j++)
+		for (int j = 2; j <= i; j++)
 		{
-			dibujarTriangulo(4 * (j - 1), 4 * (i - 1), i);
+			dibujarTriangulo(4 * (j - 2), 4 * (i - 2), i);
 		}
 	}
 }
+
+void borrar(int x, int y) {
+	Console::SetCursorPosition(x, y);
+	cout << " ";
+}
+
+void dibujar(int x, int y, char forma) {
+	Console::SetCursorPosition(x, y);
+	cout << forma;
+}
+
+int obtenerDx(int x, int dx) {
+	if (x + dx < 0 || x + dx >= WIDTH) {
+		dx = 0;
+	}
+	return dx;
+}
+
+int obtenerDy(int y, int dy) {
+	if (y + dy < 0 || y + dy >= HEIGHT) {
+		dy = 0;
+	}
+	return dy;
+}
+
+void ejercicio_8_7C() {
+	int x1, y1, dx1, dy1; // asterisco
+	int x2, y2, dx2, dy2; // arroba
+	int x3, y3, dx3, dy3; // michi
+
+	x1 = WIDTH / 2 - 2;
+	x2 = WIDTH / 2 + 2;
+	x3 = WIDTH / 2;
+
+	y1 = y2 = HEIGHT / 2 - 1;
+	y3 = HEIGHT / 2 + 1;
+
+	dx1 = dy1 = dx2 = dy2 = dx3 = dy3 = 0;
+
+	while (true)
+	{
+		borrar(x1, y1);
+		borrar(x2, y2);
+		borrar(x3, y3);
+		// mover
+		if (kbhit()) {
+			char tecla = getch();
+			tecla = toupper(tecla);
+
+			if (tecla == 'S') {
+				dx1 = -1;
+				dy1 = -1;
+
+				dx2 = 1;
+				dy2 = -1;
+
+				dx3 = 0;
+				dy3 = 1;
+			}
+		}
+		dx1 = obtenerDx(x1, dx1); dy1 = obtenerDy(y1, dy1);
+		dx2 = obtenerDx(x2, dx2); dy2 = obtenerDy(y2, dy2);
+		dx3 = obtenerDx(x3, dx3); dy3 = obtenerDy(y3, dy3);
+		
+		x1 += dx1; y1 += dy1;
+		x2 += dx2; y2 += dy2;
+		x3 += dx3; y3 += dy3;
+		dibujar(x1, y1, '*');
+		dibujar(x2, y2, '@');
+		dibujar(x3, y3, '#');
+		_sleep(40);
+	}
+
+
+}
 int main()
 {
-	ejercicio_5_7B();
+	Console::SetWindowSize(WIDTH, HEIGHT);
+	Console::CursorVisible = false;
+	ejercicio_8_7C();
 	system("pause>0");
 	return 0;
 }
