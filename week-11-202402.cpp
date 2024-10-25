@@ -212,6 +212,35 @@ void leerEInsertarOrdenado(int*& arr, int& size) {
 	agregarElementoArreglo(arr, size, elemento);
 	ordenarArregloAscendente(arr, size);
 }
+
+// extra del ejercicio 5
+int obtenerRValido() {
+	int r;
+	do
+	{
+		cout << "Ingrese el valor de R: ";
+		cin >> r;
+	} while (r < 2 || r > 5);
+	return r;
+}
+void repetirRVeces(int*& arr, int& size) {
+	int r = obtenerRValido();
+	int sizeTmp = 0;
+	int* tmp = new int[sizeTmp];
+
+	eliminarRepetidos(arr, size);
+	// recorro el arreglo de elementos unicos
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < r; j++)
+		{
+			agregarElementoArreglo(tmp, sizeTmp, arr[i]);
+		}
+	}
+	delete[] arr;
+	arr = tmp;
+	size = sizeTmp;
+}
 void ejercicio_4() {
 	int n = obtenerNValido(10, 15);
 	int* arr = new int[n];
@@ -223,7 +252,9 @@ void ejercicio_4() {
 	imprimirArregloConIndices(arr, n);
 	leerEInsertarOrdenado(arr, n);
 	imprimirArregloConIndices(arr, n);
-
+	// extra del ejercicio 5
+	repetirRVeces(arr, n);
+	imprimirArregloConIndices(arr, n);
 }
 int main()
 {
